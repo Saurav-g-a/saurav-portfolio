@@ -129,14 +129,25 @@
           </ul>
         </div>
 
-        <div class="hero-visual reveal">
-          <div class="photo-card">
-            <img src="/images/saurav.jpg" alt="Saurav Sharma" width="800" height="800" fetchpriority="high">
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="code-card">
+            <div class="code-card-bar">
+              <span></span><span></span><span></span>
+              <em>developer.ts</em>
+            </div>
+<pre class="code"><code><span class="c-kw">const</span> <span class="c-var">saurav</span> = {
+  <span class="c-key">role</span>: <span class="c-str">"Senior Frontend Developer"</span>,
+  <span class="c-key">stack</span>: [<span class="c-str">"React"</span>, <span class="c-str">"TypeScript"</span>, <span class="c-str">"Next.js"</span>],
+  <span class="c-key">shopifyApps</span>: <span class="c-num">5</span>, <span class="c-cmt">// all in production</span>
+  <span class="c-key">years</span>: <span class="c-num">6</span>,
+  <span class="c-key">currently</span>: <span class="c-str">"360° product viewer"</span>,
+  <span class="c-key">openTo</span>: <span class="c-str">"senior roles"</span>,
+};</code></pre>
           </div>
-          <div class="float-chip chip-a" aria-hidden="true">
+          <div class="float-chip chip-a">
             <span class="chip-dot"></span> React · TypeScript
           </div>
-          <div class="float-chip chip-b" aria-hidden="true">
+          <div class="float-chip chip-b">
             <span class="chip-num">5</span> Shopify apps shipped
           </div>
         </div>
@@ -195,19 +206,12 @@
             </p>
           </div>
           <aside class="about-side reveal">
-            <div class="code-card">
-              <div class="code-card-bar">
-                <span></span><span></span><span></span>
-                <em>developer.ts</em>
+            <div class="profile-card">
+              <img class="avatar" src="/images/saurav.jpg" alt="Saurav Sharma" width="160" height="160" loading="lazy">
+              <div>
+                <p class="profile-name">Saurav Sharma <span class="profile-pronouns">He/Him</span></p>
+                <p class="profile-role">Senior Frontend Developer</p>
               </div>
-<pre class="code"><code><span class="c-kw">const</span> <span class="c-var">saurav</span> = {
-  <span class="c-key">role</span>: <span class="c-str">"Senior Frontend Developer"</span>,
-  <span class="c-key">stack</span>: [<span class="c-str">"React"</span>, <span class="c-str">"TypeScript"</span>, <span class="c-str">"Next.js"</span>],
-  <span class="c-key">shopifyApps</span>: <span class="c-num">5</span>, <span class="c-cmt">// all in production</span>
-  <span class="c-key">years</span>: <span class="c-num">6</span>,
-  <span class="c-key">currently</span>: <span class="c-str">"360° product viewer"</span>,
-  <span class="c-key">openTo</span>: <span class="c-str">"senior roles"</span>,
-};</code></pre>
             </div>
             <div class="now-card">
               <div class="now-head">
@@ -217,10 +221,6 @@
               <p>Building a <strong>360° product viewer</strong> for jewellery listings at CollationHub — a high-consideration purchase deserves a better look.</p>
             </div>
             <ul class="facts">
-              <li>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                Saurav Sharma · He/Him
-              </li>
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Mohali / Chandigarh, India
@@ -362,10 +362,10 @@
         </div>
 
         <div class="filters reveal" role="group" aria-label="Filter projects">
-          <button type="button" class="filter-btn is-active" data-filter="all">All</button>
-          <button type="button" class="filter-btn" data-filter="shopify">Shopify apps</button>
-          <button type="button" class="filter-btn" data-filter="saas">SaaS platforms</button>
-          <button type="button" class="filter-btn" data-filter="web">Websites</button>
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All <span class="count">12</span></button>
+          <button type="button" class="filter-btn" data-filter="shopify" aria-pressed="false">Shopify apps <span class="count">6</span></button>
+          <button type="button" class="filter-btn" data-filter="saas" aria-pressed="false">SaaS <span class="count">2</span></button>
+          <button type="button" class="filter-btn" data-filter="web" aria-pressed="false">Websites <span class="count">4</span></button>
         </div>
 
         <div class="projects-grid" id="projects-grid">
