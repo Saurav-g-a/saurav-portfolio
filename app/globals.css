@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+/* `inline` keeps the utilities pointing at the CSS variables themselves, so
+   flipping [data-theme] on <html> re-themes everything without dark: variants. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elev: var(--bg-elev);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-back: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-drift: drift 22s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+  --animate-floaty: floaty 6s ease-in-out infinite;
+  --animate-ping-soft: ping-soft 2.2s ease-out infinite;
+}
+
+:root {
+  --bg: #0b0f17;
+  --bg-elev: #0f1520;
+  --surface: #121a27;
+  --surface-2: #182234;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #e8ecf3;
+  --text-2: #b6bfcd;
+  --muted: #8a94a6;
+  --accent: #8b7cff;
+  --accent-2: #38d6ff;
+  --accent-soft: rgba(139, 124, 255, 0.14);
+  --success: #3ddc97;
+  --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  --glow: 0 0 0 1px rgba(139, 124, 255, 0.25), 0 20px 60px -20px rgba(139, 124, 255, 0.45);
+  --code-bg: #0c1220;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f6f7fb;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f2f8;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --text: #0f172a;
+  --text-2: #334155;
+  --muted: #64748b;
+  --accent: #6b5cff;
+  --accent-2: #0ea5e9;
+  --accent-soft: rgba(107, 92, 255, 0.1);
+  --success: #16a34a;
+  --shadow: 0 20px 50px -24px rgba(15, 23, 42, 0.25);
+  --glow: 0 0 0 1px rgba(107, 92, 255, 0.2), 0 20px 60px -24px rgba(107, 92, 255, 0.35);
+  --code-bg: #0f172a;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  img {
+    height: auto;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  /* Grid items default to min-width:auto; wide content (the code block) would
+     otherwise stretch a track past the viewport on narrow phones. */
+  .grid > * {
+    min-width: 0;
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: var(--shadow);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow), var(--glow);
+  }
+  .bg-code {
+    background: var(--code-bg);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-brand {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Scroll reveal: opt in with data-reveal, ScrollEffects adds data-shown. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.8s var(--ease-out-back);
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cursor spotlight, driven by --mx/--my from ScrollEffects. */
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--accent-soft), transparent 45%);
+  transition: opacity 0.35s ease;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Syntax colours for the hero code card. */
+.tok-kw { color: #c792ea; }
+.tok-var { color: #82aaff; }
+.tok-key { color: #ffcb6b; }
+.tok-str { color: #c3e88d; }
+.tok-num { color: #f78c6c; }
+.tok-cmt { color: #6b7590; font-style: italic; }
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(40px, 60px, 0) scale(1.08); }
+}
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes ping-soft {
+  0% { box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.55); }
+  100% { box-shadow: 0 0 0 10px rgba(61, 220, 151, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
