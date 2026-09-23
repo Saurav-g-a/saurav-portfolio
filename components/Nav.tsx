@@ -84,7 +84,7 @@ export default function Nav() {
         }`}
       >
         <Container className="flex h-[72px] items-center justify-between gap-6">
-          <a href="#top" aria-label={`${profile.name}, home`} className="inline-flex items-center gap-2.5 font-display text-lg font-extrabold">
+          <a href="#top" aria-label={`${profile.name}, home`} className="-my-1 inline-flex min-h-11 items-center gap-2.5 py-1 font-display text-lg font-extrabold">
             <span className="grid h-[34px] w-[34px] place-items-center rounded-[10px] bg-brand text-white shadow-[0_6px_18px_-6px_var(--accent)]">S</span>
             <span>
               Saurav<span className="text-accent">.</span>

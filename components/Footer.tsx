@@ -8,7 +8,7 @@ export default function Footer() {
         <p>
           © {new Date().getFullYear()} {profile.name}. Built with Next.js and Tailwind CSS.
         </p>
-        <a href="#top" className="font-medium text-ink-2 transition-colors hover:text-accent">
+        <a href="#top" className="inline-flex min-h-11 items-center font-medium text-ink-2 transition-colors hover:text-accent sm:min-h-0">
           Back to top ↑
         </a>
       </Container>

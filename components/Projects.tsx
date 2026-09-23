@@ -12,7 +12,7 @@ function VisitLink({ href }: { href: string }) {
       href={href}
       target="_blank"
       rel="noopener"
-      className="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-accent transition-[gap] duration-200 hover:gap-2.5 hover:underline hover:underline-offset-4"
+      className="mt-2 inline-flex min-h-11 items-center gap-1.5 self-start py-2.5 text-sm font-semibold text-accent transition-[gap] duration-200 hover:gap-2.5 hover:underline hover:underline-offset-4 sm:mt-4 sm:min-h-0 sm:py-0"
     >
       Visit site <span aria-hidden="true">↗</span>
     </a>
@@ -22,8 +22,8 @@ function VisitLink({ href }: { href: string }) {
 function FeaturedCard({ p }: { p: Project }) {
   return (
     <Card className="grid overflow-hidden sm:col-span-2 lg:grid-cols-[0.9fr_1.1fr]">
-      <div aria-hidden="true" className="grid place-items-center border-b border-line bg-[linear-gradient(160deg,var(--surface-2),var(--surface))] p-7 lg:border-b-0 lg:border-r">
-        <svg viewBox="0 0 320 200" className="w-full max-w-[320px]">
+      <div aria-hidden="true" className="grid place-items-center border-b border-line bg-[linear-gradient(160deg,var(--surface-2),var(--surface))] px-7 py-5 sm:p-7 lg:border-b-0 lg:border-r">
+        <svg viewBox="0 0 320 200" className="w-full max-w-[220px] sm:max-w-[320px]">
           <defs>
             <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stopColor="var(--accent)" />
@@ -153,7 +153,14 @@ export default function Projects() {
 
   return (
     <div>
-      <div role="group" aria-label="Filter projects" className="no-scrollbar -mt-2 mb-7 inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-line bg-surface p-1" data-reveal>
+      {/* Wraps on phones: all four tabs together are wider than a 390px screen,
+          and a silent horizontal scroller hides the last one. */}
+      <div
+        role="group"
+        aria-label="Filter projects"
+        className="-mt-2 mb-7 flex max-w-full flex-wrap gap-1 rounded-2xl border border-line bg-surface p-1 sm:inline-flex sm:flex-nowrap sm:rounded-full"
+        data-reveal
+      >
         {filters.map((f) => {
           const on = active === f.id;
           return (
@@ -162,7 +169,7 @@ export default function Projects() {
               type="button"
               aria-pressed={on}
               onClick={() => setActive(f.id)}
-              className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-[9px] text-sm font-semibold transition-colors ${
+              className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full px-4 py-[9px] text-sm font-semibold transition-colors sm:min-h-0 ${
                 on ? "bg-surface-2 text-ink shadow-[inset_0_0_0_1px_var(--border-strong),0_1px_2px_rgba(0,0,0,0.2)]" : "text-ink-2 hover:bg-surface-2 hover:text-ink"
               }`}
             >
