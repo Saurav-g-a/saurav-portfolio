@@ -19,23 +19,40 @@
   /* ---------- Mobile menu ---------- */
   var menuBtn = document.getElementById('menu-btn');
   var navLinks = document.getElementById('nav-links');
-  function closeMenu() {
-    if (!navLinks) return;
-    navLinks.classList.remove('is-open');
-    menuBtn.setAttribute('aria-expanded', 'false');
-    menuBtn.setAttribute('aria-label', 'Open menu');
+  var navScrim = document.getElementById('nav-scrim');
+
+  function setMenu(open) {
+    if (!navLinks || !menuBtn) return;
+    navLinks.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('menu-open', open);
+    if (navScrim) {
+      if (open) navScrim.hidden = false;
+      navScrim.classList.toggle('is-open', open);
+      if (!open) {
+        // keep the fade-out visible before hiding
+        setTimeout(function () { if (!navLinks.classList.contains('is-open')) navScrim.hidden = true; }, 300);
+      }
+    }
   }
+  function closeMenu() { setMenu(false); }
+
   if (menuBtn && navLinks) {
     menuBtn.addEventListener('click', function () {
-      var open = navLinks.classList.toggle('is-open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      setMenu(!navLinks.classList.contains('is-open'));
     });
     navLinks.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') closeMenu();
+      if (e.target.closest('a')) closeMenu();
     });
+    if (navScrim) navScrim.addEventListener('click', closeMenu);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeMenu();
+    });
+    // Leaving the mobile breakpoint should never strand the menu open.
+    var wide = window.matchMedia('(min-width: 861px)');
+    (wide.addEventListener ? wide.addEventListener.bind(wide, 'change') : wide.addListener.bind(wide))(function (e) {
+      if (e.matches) closeMenu();
     });
   }
 
